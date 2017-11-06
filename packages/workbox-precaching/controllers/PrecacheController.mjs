@@ -20,7 +20,6 @@ import {
   fetchWrapper,
   cacheWrapper,
   assert,
-  logger,
 } from 'workbox-core/_private.mjs';
 import PrecacheEntry from '../models/PrecacheEntry.mjs';
 import PrecachedDetailsModel from '../models/PrecachedDetailsModel.mjs';
