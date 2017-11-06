@@ -25,7 +25,7 @@ import {
 import PrecacheEntry from '../models/PrecacheEntry.mjs';
 import PrecachedDetailsModel from '../models/PrecachedDetailsModel.mjs';
 import showWarningsIfNeeded from '../utils/showWarningsIfNeeded.mjs';
-import openInstallLogGroup from '../utils/openInstallLogGroup.mjs';
+import printInstallLogGroup from '../utils/printInstallLogGroup.mjs';
 import printCleanupDetails from '../utils/printCleanupDetails.mjs';
 import cleanRedirect from '../utils/cleanRedirect.mjs';
 import '../_version.mjs';
@@ -187,17 +187,13 @@ class PrecacheController {
       }
     }
 
-    if (process.env.NODE_ENV !== 'production') {
-      openInstallLogGroup(entriesToPrecache, entriesAlreadyPrecached);
-    }
-
     // Wait for all requests to be cached.
     await Promise.all(entriesToPrecache.map((precacheEntry) => {
       return this._cacheEntry(precacheEntry);
     }));
 
     if (process.env.NODE_ENV !== 'production') {
-      logger.groupEnd();
+      printInstallLogGroup(entriesToPrecache, entriesAlreadyPrecached);
     }
 
     return {
